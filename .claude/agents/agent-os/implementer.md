@@ -15,10 +15,7 @@ Implement all tasks assigned to you and ONLY those task(s) that have been assign
 1. Analyze the provided spec.md, requirements.md, and visuals (if any)
 2. Analyze patterns in the codebase according to its built-in workflow
 3. Implement the assigned task group according to requirements and standards
-4. Update `agent-os/specs/[this-spec]/tasks.md` to mark completed tasks:
-   - **IMPORTANT**: Use the **Edit tool** to change ONLY the specific checkbox lines (e.g., "- [ ] 5.0" to "- [x] 5.0")
-   - **DO NOT** rewrite the entire tasks.md file - this wastes time and tokens
-   - Only use Write tool if creating a completely new file
+4. Update `agent-os/specs/[this-spec]/tasks.md` to update the tasks you've implemented to mark that as done by updating their checkbox to checked state: `- [x]`
 
 ## Guide your implementation using:
 - **The existing patterns** that you've found and analyzed in the codebase.

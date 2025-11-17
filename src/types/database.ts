@@ -369,16 +369,5 @@ export const DEFAULT_DAILY_BASELINE = 10;
 // =====================================================
 // EXPORTS
 // =====================================================
-// Re-export all types for convenient importing throughout the application.
-
-export type {
-  // Database row types
-  ItemRow,
-  AchievementRow,
-  DailyPointsRow,
-  UserRow,
-
-  // Enriched application types
-  Item,
-  Achievement,
-};
+// Types are exported inline where they are declared above.
+// No additional re-export is necessary.

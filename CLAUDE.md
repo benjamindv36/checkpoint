@@ -23,6 +23,8 @@ General guidance for AI-assisted development workflows.
 3. This ensures the behavior change persists across all future sessions
 4. Never just say "I'll remember that" - **DOCUMENT IT**
 
+**Atomic TODOs rule**: Mark todos as completed only after the work is finished and verified, never before. Update the todo tracker after successful execution to keep state atomic.
+
 **How to update CLAUDE.md:**
 - **Keep it concise** - 1-2 lines per instruction, follow existing pattern
 - **Match the document style** - short bullets, clear rules, no walls of text
