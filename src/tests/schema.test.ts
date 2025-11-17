@@ -10,7 +10,7 @@
  * They are designed to be run against a test database instance.
  */
 
-import { describe, it, expect } from 'vitest';
+// Jest provides `describe`, `it`, and `expect` as globals; no import needed
 import { readFileSync } from 'fs';
 import { join } from 'path';
 

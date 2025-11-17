@@ -11,7 +11,7 @@
  * is correctly structured. Runtime tests verify type guards and validation.
  */
 
-import { describe, it, expect } from 'vitest';
+// Jest provides `describe`, `it`, and `expect` as globals; no import needed
 import type {
   ItemRow,
   AchievementRow,

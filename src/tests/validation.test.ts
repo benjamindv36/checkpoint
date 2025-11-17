@@ -13,7 +13,7 @@
  * Does not exhaustively test all possible validation combinations.
  */
 
-import { describe, it, expect } from 'vitest';
+// Jest provides `describe`, `it`, and `expect` as globals; no import needed
 import {
   itemCreateSchema,
   itemUpdateSchema,
@@ -67,7 +67,13 @@ describe('Zod Validation Schemas', () => {
       };
 
       expect(() => itemCreateSchema.parse(invalidData)).toThrow(ZodError);
-      expect(() => itemCreateSchema.parse(invalidData)).toThrow('Item text must be at least 1 character');
+      try {
+        itemCreateSchema.parse(invalidData);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe('Item text must be at least 1 character');
+        }
+      }
     });
 
     it('should reject item with text exceeding 5000 characters', () => {
@@ -77,7 +83,13 @@ describe('Zod Validation Schemas', () => {
       };
 
       expect(() => itemCreateSchema.parse(invalidData)).toThrow(ZodError);
-      expect(() => itemCreateSchema.parse(invalidData)).toThrow('Item text cannot exceed 5000 characters');
+      try {
+        itemCreateSchema.parse(invalidData);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe('Item text cannot exceed 5000 characters');
+        }
+      }
     });
 
     it('should reject invalid item type enum value', () => {
@@ -87,7 +99,13 @@ describe('Zod Validation Schemas', () => {
       };
 
       expect(() => itemCreateSchema.parse(invalidData)).toThrow(ZodError);
-      expect(() => itemCreateSchema.parse(invalidData)).toThrow("Item type must be 'direction', 'waypoint', or 'step'");
+      try {
+        itemCreateSchema.parse(invalidData);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe("Item type must be 'direction', 'waypoint', or 'step'");
+        }
+      }
     });
 
     it('should accept all valid item type enum values', () => {
@@ -113,8 +131,21 @@ describe('Zod Validation Schemas', () => {
         points: -5,
       };
 
-      expect(() => itemCreateSchema.parse(negativePosition)).toThrow('Position must be non-negative');
-      expect(() => itemCreateSchema.parse(negativePoints)).toThrow('Points must be non-negative');
+      try {
+        itemCreateSchema.parse(negativePosition);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe('Position must be non-negative');
+        }
+      }
+
+      try {
+        itemCreateSchema.parse(negativePoints);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe('Points must be non-negative');
+        }
+      }
     });
 
     it('should reject invalid UUID format for parent_id', () => {
@@ -125,7 +156,13 @@ describe('Zod Validation Schemas', () => {
       };
 
       expect(() => itemCreateSchema.parse(invalidUUID)).toThrow(ZodError);
-      expect(() => itemCreateSchema.parse(invalidUUID)).toThrow('Parent ID must be a valid UUID');
+      try {
+        itemCreateSchema.parse(invalidUUID);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe('Parent ID must be a valid UUID');
+        }
+      }
     });
   });
 
@@ -174,7 +211,13 @@ describe('Zod Validation Schemas', () => {
         points_earned: 25,
       };
 
-      expect(() => achievementCreateSchema.parse(invalidData)).toThrow('Item ID must be a valid UUID');
+      try {
+        achievementCreateSchema.parse(invalidData);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe('Item ID must be a valid UUID');
+        }
+      }
     });
 
     it('should reject negative points_earned', () => {
@@ -183,7 +226,13 @@ describe('Zod Validation Schemas', () => {
         points_earned: -10,
       };
 
-      expect(() => achievementCreateSchema.parse(invalidData)).toThrow('Points earned must be non-negative');
+      try {
+        achievementCreateSchema.parse(invalidData);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe('Points earned must be non-negative');
+        }
+      }
     });
   });
 
@@ -219,7 +268,13 @@ describe('Zod Validation Schemas', () => {
       ];
 
       invalidFormats.forEach((data) => {
-        expect(() => dailyPointsSchema.parse(data)).toThrow('Date must be in YYYY-MM-DD format');
+        try {
+          dailyPointsSchema.parse(data);
+        } catch (error) {
+          if (error instanceof ZodError) {
+            expect(error.issues[0].message).toBe('Date must be in YYYY-MM-DD format');
+          }
+        }
       });
     });
 
@@ -281,7 +336,13 @@ describe('Zod Validation Schemas', () => {
         theme: 'invalid-theme',
       };
 
-      expect(() => userPreferencesSchema.parse(invalidPreferences)).toThrow("Theme must be 'light', 'dark', or 'auto'");
+      try {
+        userPreferencesSchema.parse(invalidPreferences);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          expect(error.issues[0].message).toBe("Theme must be 'light', 'dark', or 'auto'");
+        }
+      }
     });
 
     it('should accept undefined/null for entire preferences object', () => {

@@ -47,7 +47,7 @@ export const itemCreateSchema = z.object({
     .min(1, 'Item text must be at least 1 character')
     .max(5000, 'Item text cannot exceed 5000 characters'),
   type: z.enum(['direction', 'waypoint', 'step'], {
-    errorMap: () => ({ message: "Item type must be 'direction', 'waypoint', or 'step'" }),
+    message: "Item type must be 'direction', 'waypoint', or 'step'",
   }),
   parent_id: z
     .string()
@@ -90,7 +90,7 @@ export const itemUpdateSchema = z.object({
     .optional(),
   type: z
     .enum(['direction', 'waypoint', 'step'], {
-      errorMap: () => ({ message: "Item type must be 'direction', 'waypoint', or 'step'" }),
+      message: "Item type must be 'direction', 'waypoint', or 'step'",
     })
     .optional(),
   parent_id: z
@@ -230,7 +230,7 @@ export const userPreferencesSchema = z
       .optional(),
     theme: z
       .enum(['light', 'dark', 'auto'], {
-        errorMap: () => ({ message: "Theme must be 'light', 'dark', or 'auto'" }),
+        message: "Theme must be 'light', 'dark', or 'auto'",
       })
       .default('auto')
       .optional(),
