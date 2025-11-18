@@ -25,7 +25,7 @@ import {
   type AchievementCreateInput,
   type DailyPointsInput,
   type UserPreferencesInput,
-} from '@/src/schemas/validation';
+} from '@/schemas/validation';
 import { ZodError } from 'zod';
 
 describe('Zod Validation Schemas', () => {

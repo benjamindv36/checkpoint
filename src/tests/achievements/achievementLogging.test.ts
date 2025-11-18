@@ -1,6 +1,6 @@
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { createItem, updateItem, getItemById } from '@/src/lib/data/items';
-import { createAchievement, getAchievementsByUserId, getAchievementsForItem } from '@/src/lib/data/achievements';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { createItem, updateItem, getItemById } from '@/lib/data/items';
+import { createAchievement, getAchievementsByUserId, getAchievementsForItem } from '@/lib/data/achievements';
 
 // Mock localStorage
 const localStorageMock = (() => {

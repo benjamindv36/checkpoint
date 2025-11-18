@@ -13,8 +13,8 @@
  * @module lib/migration/export
  */
 
-import { getItems, getAchievements, getDailyPoints, getUser } from '@/src/lib/storage/localStorage';
-import type { ExportData } from '@/src/types/migration';
+import { getItems, getAchievements, getDailyPoints, getUser } from '@/lib/storage/localStorage';
+import type { ExportData } from '@/types/migration';
 
 /**
  * Export all localStorage data to JSON format.

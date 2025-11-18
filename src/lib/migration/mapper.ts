@@ -13,8 +13,8 @@
  * @module lib/migration/mapper
  */
 
-import type { ItemRow, AchievementRow, DailyPointsRow } from '@/src/types/database';
-import type { ExportData, MappedData } from '@/src/types/migration';
+import type { ItemRow, AchievementRow, DailyPointsRow } from '@/types/database';
+import type { ExportData, MappedData } from '@/types/migration';
 
 /**
  * Map localStorage user data to authenticated Supabase user.

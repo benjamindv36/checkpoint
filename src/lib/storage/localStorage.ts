@@ -15,7 +15,7 @@
  * @module lib/storage/localStorage
  */
 
-import type { ItemRow, AchievementRow, DailyPointsRow, UserRow } from '@/src/types/database';
+import type { ItemRow, AchievementRow, DailyPointsRow, UserRow } from '@/types/database';
 
 // localStorage key constants
 const STORAGE_KEYS = {

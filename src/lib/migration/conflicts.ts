@@ -13,12 +13,12 @@
  * @module lib/migration/conflicts
  */
 
-import type { ItemRow } from '@/src/types/database';
+import type { ItemRow } from '@/types/database';
 import type {
   ConflictItem,
   ConflictDetectionResult,
   ConflictStrategy,
-} from '@/src/types/migration';
+} from '@/types/migration';
 
 /**
  * Detect conflicts between localStorage items and Supabase items.

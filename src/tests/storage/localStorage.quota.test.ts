@@ -1,5 +1,5 @@
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { setItems } from '@/src/lib/storage/localStorage';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { setItems } from '@/lib/storage/localStorage';
 
 // Mock localStorage that throws on quota
 const localStorageMock = (() => {

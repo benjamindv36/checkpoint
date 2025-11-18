@@ -1,5 +1,5 @@
-import CanvasPlaceholder from "../../src/components/CanvasPlaceholder";
+import Canvas from "../../src/components/Canvas";
 
 export default function CanvasPage() {
-  return <CanvasPlaceholder />;
+  return <Canvas />;
 }

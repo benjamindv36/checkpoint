@@ -23,8 +23,8 @@
  * @module lib/autolink/detection
  */
 
-import { getItemsByText, deleteItem, updateItem, getItemById } from '@/src/lib/data/items';
-import type { ItemRow, Item } from '@/src/types/database';
+import { getItemsByText, deleteItem, updateItem, getItemById } from '@/lib/data/items';
+import type { ItemRow, Item } from '@/types/database';
 
 /**
  * Find all duplicate items with matching text (case-insensitive).

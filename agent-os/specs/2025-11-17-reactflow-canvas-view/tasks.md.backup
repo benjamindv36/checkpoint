@@ -1,0 +1,383 @@
+# Task Breakdown: ReactFlow Canvas View
+
+## Overview
+Total Task Groups: 7
+Estimated Complexity: Complex
+
+This feature implements an interactive node-based canvas using ReactFlow where items appear as draggable nodes with visual connections, manual positioning with localStorage persistence, auto-layout capabilities, and Ctrl+Click connection creation.
+
+## Task List
+
+### Canvas Infrastructure
+
+#### Task Group 1: Core ReactFlow Setup
+**Dependencies:** None
+
+- [x] 1.0 Complete core canvas infrastructure
+  - [x] 1.1 Write 2-8 focused tests for canvas initialization
+    - Test ReactFlow component renders with empty data
+    - Test canvas loads with existing items from localStorage
+    - Test basic node/edge data transformation
+    - Skip exhaustive edge cases and performance testing at this stage
+  - [x] 1.2 Replace CanvasPlaceholder component with ReactFlow implementation
+    - Import ReactFlow components: ReactFlow, Controls, Background, MiniMap
+    - Import ReactFlow styles: 'reactflow/dist/style.css'
+    - Set up basic canvas container with full-width layout
+    - Maintain dark mode support using Tailwind dark: classes
+  - [x] 1.3 Set up useNodesState and useEdgesState hooks
+    - Initialize nodes state from items data
+    - Initialize edges state from relationships
+    - Configure ReactFlow props (fitView, nodesDraggable, etc.)
+  - [x] 1.4 Implement initial data loading from localStorage
+    - Use getActiveItems() from src/lib/data/items.ts
+    - Transform ItemRow objects to ReactFlow Node format
+    - Create edges from parent_id relationships
+    - Handle empty state gracefully
+  - [x] 1.5 Add ReactFlow Controls and Background components
+    - Include zoom in/out controls
+    - Add fit-view button
+    - Configure background pattern (dots or grid)
+    - Disable default connecting mode (no drag-to-connect)
+  - [x] 1.6 Ensure canvas infrastructure tests pass
+    - Run ONLY the 2-8 tests written in 1.1
+    - Verify ReactFlow renders without errors
+    - Do NOT run entire test suite at this stage
+
+**Acceptance Criteria:**
+- The 2-8 tests written in 1.1 pass
+- ReactFlow canvas renders with items from localStorage
+- Basic pan and zoom controls work
+- Background pattern displays correctly
+- No drag-to-connect behavior (disabled)
+
+### Node Components
+
+#### Task Group 2: Custom Node Components for Item Types
+**Dependencies:** Task Group 1
+
+- [ ] 2.0 Complete custom node components
+  - [ ] 2.1 Write 2-8 focused tests for node components
+    - Test DirectionNode renders with correct styling and data
+    - Test WaypointNode renders with correct styling and data
+    - Test StepNode renders with correct styling and data
+    - Test progress circle fills based on completion status
+    - Test points display within progress circle
+    - Skip exhaustive prop variations and edge cases
+  - [ ] 2.2 Create DirectionNode component
+    - Display item text with truncation for long text
+    - Render "Direction" type indicator (icon or label)
+    - Show progress circle behind/around text (filled when completed)
+    - Display points value (100) inside/near progress circle
+    - Apply purple border (stroke-purple-600), bold text, white background
+    - Ensure large rectangular shape for visual prominence
+  - [ ] 2.3 Create WaypointNode component
+    - Display item text with truncation for long text
+    - Render "Waypoint" type indicator (icon or label)
+    - Show progress circle behind/around text (filled when completed)
+    - Display points value (25) inside/near progress circle
+    - Apply blue border (stroke-blue-500), normal weight text, white background
+    - Use medium rectangular shape
+  - [ ] 2.4 Create StepNode component
+    - Display item text with truncation for long text
+    - Render "Step" type indicator (icon or label)
+    - Show progress circle behind/around text (filled when completed)
+    - Display points value (5) inside/near progress circle
+    - Apply gray border (stroke-zinc-400), normal weight text, white background
+    - Use small rectangular shape
+  - [ ] 2.5 Register custom node types in ReactFlow
+    - Create nodeTypes object mapping 'direction', 'waypoint', 'step' to components
+    - Pass nodeTypes to ReactFlow component
+    - Update node data transformation to include correct type field
+  - [ ] 2.6 Apply selection styling to nodes
+    - Add shadow-lg and border-2 when node is selected
+    - Implement visual feedback using ReactFlow's selected prop
+    - Ensure selection state is clearly visible at all zoom levels
+  - [ ] 2.7 Ensure node component tests pass
+    - Run ONLY the 2-8 tests written in 2.1
+    - Verify all three node types render correctly
+    - Do NOT run entire test suite at this stage
+
+**Acceptance Criteria:**
+- The 2-8 tests written in 2.1 pass
+- All three node types (Direction/Waypoint/Step) render with distinct styling
+- Progress circles accurately reflect completion status
+- Points values display correctly (100/25/5)
+- Selected nodes show clear visual feedback
+- Nodes are visually distinct at different zoom levels
+
+### Edge Rendering
+
+#### Task Group 3: Connection Visualization
+**Dependencies:** Task Groups 1, 2
+
+- [ ] 3.0 Complete edge rendering system
+  - [ ] 3.1 Write 2-8 focused tests for edge rendering
+    - Test parent-child edges render with solid gray styling
+    - Test manual connection edges render with dashed blue styling
+    - Test edges connect correct source and target nodes
+    - Test auto-linking edges render for linked instances
+    - Skip exhaustive edge routing and overlap scenarios
+  - [ ] 3.2 Implement parent-child edge generation
+    - Query relationships using parent_id field from items
+    - Create edges with solid gray styling (stroke-zinc-300)
+    - Use smooth bezier curves for edge routing
+    - Set appropriate edge type ('smoothstep' or 'default')
+  - [ ] 3.3 Load manual connections from localStorage
+    - Read 'waypoint:manual_connections' key as array of {sourceId, targetId}
+    - Create edges for each manual connection
+    - Apply dashed blue styling (stroke-blue-400, stroke-dasharray-4)
+    - Use straight lines or step curves to differentiate from parent-child
+  - [ ] 3.4 Integrate auto-linking system for visual connections
+    - Use enrichItemsWithAutoLinks() from src/lib/autolink/detection.ts
+    - Access linkedInstances array for each item
+    - Create dashed edges between items with matching text
+    - Treat auto-linked edges as manual connection style
+  - [ ] 3.5 Configure edge interaction styling
+    - Increase stroke width on hover for interactive feedback
+    - Increase opacity on hover
+    - Ensure edges are selectable but not editable
+  - [ ] 3.6 Ensure edge rendering tests pass
+    - Run ONLY the 2-8 tests written in 3.1
+    - Verify both edge types render with correct styling
+    - Do NOT run entire test suite at this stage
+
+**Acceptance Criteria:**
+- The 2-8 tests written in 3.1 pass
+- Parent-child relationships render as solid gray edges
+- Manual connections render as dashed blue edges
+- Auto-linked items show visual connections
+- Edges have appropriate hover feedback
+- Edge routing avoids overlap when possible
+
+### Interaction System
+
+#### Task Group 4: Node Selection and Connection Creation
+**Dependencies:** Task Groups 1, 2, 3
+
+- [ ] 4.0 Complete interaction system
+  - [ ] 4.1 Write 2-8 focused tests for interaction behaviors
+    - Test single-click selects node
+    - Test Ctrl+Click creates connection between selected and clicked nodes
+    - Test clicking canvas background deselects node
+    - Test connection persists to localStorage
+    - Skip exhaustive keyboard shortcut variations
+  - [ ] 4.2 Implement single-click node selection
+    - Track currently selected node ID in component state
+    - Handle onNodeClick event from ReactFlow
+    - Apply selection highlight to clicked node
+    - Clear selection when clicking canvas background
+  - [ ] 4.3 Implement Ctrl+Click connection creation
+    - Detect Ctrl/Cmd key press during node click
+    - Verify a node is already selected
+    - Create new edge from selected node to clicked node
+    - Add connection to edges state immediately
+    - Deselect node after connection creation
+  - [ ] 4.4 Persist manual connections to localStorage
+    - Save new connection to 'waypoint:manual_connections' array
+    - Format: {sourceId: string, targetId: string}
+    - Append to existing array without duplicates
+    - Trigger storage event for cross-tab sync
+  - [ ] 4.5 Implement drag-and-drop node positioning
+    - Enable nodesDraggable prop on ReactFlow
+    - Handle onNodeDragStop event
+    - Update node position in state
+    - Maintain smooth drag interaction (60fps target)
+  - [ ] 4.6 Ensure interaction tests pass
+    - Run ONLY the 2-8 tests written in 4.1
+    - Verify selection and Ctrl+Click behaviors work
+    - Do NOT run entire test suite at this stage
+
+**Acceptance Criteria:**
+- The 2-8 tests written in 4.1 pass
+- Single-click selects node with visual feedback
+- Ctrl+Click creates connection between selected and clicked nodes
+- Connections persist to localStorage
+- Nodes drag smoothly without lag
+- Background click deselects nodes
+
+### Layout & Persistence
+
+#### Task Group 5: Auto-Layout and Position Persistence
+**Dependencies:** Task Groups 1, 2, 4
+
+- [ ] 5.0 Complete layout and persistence system
+  - [ ] 5.1 Write 2-8 focused tests for layout and persistence
+    - Test node positions load from localStorage on mount
+    - Test node positions save to localStorage on drag end
+    - Test auto-layout arranges nodes left-to-right hierarchically
+    - Test new items get default positions
+    - Skip exhaustive layout algorithm edge cases
+  - [ ] 5.2 Implement position loading from localStorage
+    - Read 'waypoint:node_positions' key as map of itemId to {x, y}
+    - Apply stored positions to nodes on canvas mount
+    - Use default position for items without stored coordinates
+  - [ ] 5.3 Implement position persistence on drag
+    - Debounce position updates during drag to reduce write frequency
+    - Save updated positions to localStorage on onNodeDragStop
+    - Update 'waypoint:node_positions' map with new coordinates
+    - Maintain atomic updates to prevent data corruption
+  - [ ] 5.4 Assign default positions for new items
+    - Use grid layout for items without positions
+    - Position near parent node if parent exists
+    - Apply consistent spacing to avoid overlap (200px horizontal, 100px vertical)
+  - [ ] 5.5 Create toolbar with auto-layout button
+    - Position toolbar at top-right or bottom-left corner
+    - Add semi-transparent background for visibility
+    - Include "Auto Layout" button with clear icon/label
+  - [ ] 5.6 Implement auto-layout algorithm
+    - Arrange nodes left-to-right based on hierarchy depth
+    - Position Direction nodes on left, Waypoints in middle, Steps on right
+    - Apply consistent spacing (200px horizontal, 100px vertical)
+    - Use ReactFlow's layout utilities or custom solution
+    - Save computed positions to localStorage after layout
+  - [ ] 5.7 Ensure layout and persistence tests pass
+    - Run ONLY the 2-8 tests written in 5.1
+    - Verify positions load and save correctly
+    - Do NOT run entire test suite at this stage
+
+**Acceptance Criteria:**
+- The 2-8 tests written in 5.1 pass
+- Node positions persist across page reloads
+- Drag updates save to localStorage with debouncing
+- Auto-layout arranges nodes hierarchically left-to-right
+- New items receive sensible default positions
+- Auto-layout button works and saves positions
+
+### Data Synchronization
+
+#### Task Group 6: Auto-Refresh on Data Changes
+**Dependencies:** Task Groups 1, 2, 3, 4, 5
+
+- [ ] 6.0 Complete data synchronization system
+  - [ ] 6.1 Write 2-8 focused tests for data sync
+    - Test canvas refreshes when item added in outline view
+    - Test canvas refreshes when item deleted in outline view
+    - Test canvas refreshes when item updated in outline view
+    - Test cross-tab sync using storage event
+    - Skip exhaustive polling and event timing scenarios
+  - [ ] 6.2 Set up storage event listener for cross-tab sync
+    - Listen to 'storage' event on window
+    - Detect changes to 'waypoint:items' key
+    - Trigger data refresh when storage changes
+    - Clean up listener on component unmount
+  - [ ] 6.3 Implement data refresh mechanism
+    - Re-fetch items from localStorage using getActiveItems()
+    - Rebuild nodes array with updated data
+    - Rebuild edges array with updated relationships
+    - Preserve existing node positions from 'waypoint:node_positions'
+  - [ ] 6.4 Optimize re-rendering for performance
+    - Use React.memo on node components to prevent unnecessary renders
+    - Implement key-based optimization for nodes/edges arrays
+    - Only rebuild changed nodes/edges, not entire canvas
+    - Avoid full canvas rebuild on minor updates (text changes, completion toggles)
+  - [ ] 6.5 Add polling fallback for same-tab updates
+    - Implement interval-based polling (e.g., every 2-3 seconds)
+    - Compare current items with previous snapshot
+    - Trigger refresh only if changes detected
+    - Clear interval on component unmount
+  - [ ] 6.6 Ensure data sync tests pass
+    - Run ONLY the 2-8 tests written in 6.1
+    - Verify auto-refresh works for add/update/delete
+    - Do NOT run entire test suite at this stage
+
+**Acceptance Criteria:**
+- The 2-8 tests written in 6.1 pass
+- Canvas auto-refreshes when items change in outline view
+- Cross-tab sync works via storage event
+- Node positions preserved during data refresh
+- Re-rendering optimized to avoid performance issues
+- Updates feel smooth and responsive
+
+### Performance & Testing
+
+#### Task Group 7: Optimization and Test Coverage
+**Dependencies:** Task Groups 1-6
+
+- [ ] 7.0 Complete performance optimization and testing
+  - [ ] 7.1 Review tests from Task Groups 1-6
+    - Review the 2-8 tests written by each previous task group (1.1, 2.1, 3.1, 4.1, 5.1, 6.1)
+    - Total existing tests: approximately 12-48 tests
+  - [ ] 7.2 Analyze test coverage gaps for ReactFlow Canvas feature only
+    - Identify critical user workflows lacking coverage (e.g., complete connection flow, position persistence edge cases)
+    - Focus ONLY on gaps related to this spec's canvas feature
+    - Do NOT assess entire application test coverage
+    - Prioritize end-to-end workflows: select node → Ctrl+Click → connection created → persisted
+  - [ ] 7.3 Write up to 10 additional strategic tests maximum
+    - Add maximum of 10 new tests to fill identified critical gaps
+    - Focus on integration workflows (e.g., drag → save → reload → position preserved)
+    - Test error scenarios (localStorage unavailable, corrupt position data)
+    - Test edge cases (empty canvas, single node, disconnected nodes)
+    - Skip comprehensive performance testing and accessibility tests
+  - [ ] 7.4 Implement performance optimizations
+    - Lazy load node components to reduce initial bundle size
+    - Use ReactFlow's viewport optimization (only render visible nodes)
+    - Verify debounced position updates during drag
+    - Profile drag/pan/zoom to ensure 60fps target
+  - [ ] 7.5 Optimize localStorage write patterns
+    - Batch position updates when possible
+    - Avoid redundant writes for unchanged data
+    - Use efficient serialization for position map
+  - [ ] 7.6 Run feature-specific tests only
+    - Run ONLY tests related to ReactFlow Canvas feature (from 1.1, 2.1, 3.1, 4.1, 5.1, 6.1, and 7.3)
+    - Expected total: approximately 22-58 tests maximum
+    - Do NOT run entire application test suite
+    - Verify all critical canvas workflows pass
+  - [ ] 7.7 Performance verification
+    - Test drag interaction maintains 60fps
+    - Test pan and zoom feel smooth
+    - Verify canvas loads quickly with 50+ nodes
+    - Check memory usage during extended sessions
+
+**Acceptance Criteria:**
+- All feature-specific tests pass (approximately 22-58 tests total)
+- No more than 10 additional tests added when filling gaps
+- Drag/pan/zoom interactions maintain 60fps
+- Node components are lazy loaded
+- localStorage writes are debounced and optimized
+- Canvas feels smooth and responsive with 50+ nodes
+- Critical user workflows tested end-to-end
+
+## Execution Order
+
+Recommended implementation sequence:
+1. Canvas Infrastructure (Task Group 1) - Set up ReactFlow foundation
+2. Node Components (Task Group 2) - Create custom visual components
+3. Edge Rendering (Task Group 3) - Implement connection visualization
+4. Interaction System (Task Group 4) - Enable selection and connection creation
+5. Layout & Persistence (Task Group 5) - Add auto-layout and position saving
+6. Data Synchronization (Task Group 6) - Implement auto-refresh
+7. Performance & Testing (Task Group 7) - Optimize and verify coverage
+
+## Technical Notes
+
+**Key Dependencies:**
+- ReactFlow v11.11.4 (already installed)
+- Existing localStorage CRUD in src/lib/data/items.ts
+- Item types from src/types/database.ts
+- Auto-linking from src/lib/autolink/detection.ts
+
+**Critical Patterns:**
+- Use getActiveItems() for data fetching
+- Use enrichItemsWithAutoLinks() for auto-link edges
+- Follow type colors: purple (Direction), blue (Waypoint), gray (Step)
+- Debounce all localStorage writes during drag operations
+- Use React.memo for node components to optimize re-renders
+
+**Performance Targets:**
+- 60fps during drag, pan, and zoom
+- Canvas loads in <1s with 50+ nodes
+- Debounced localStorage writes (300-500ms delay)
+- Optimized re-rendering on data changes
+
+**localStorage Schema:**
+```javascript
+// Node positions
+'waypoint:node_positions': {
+  [itemId: string]: { x: number, y: number }
+}
+
+// Manual connections
+'waypoint:manual_connections': [
+  { sourceId: string, targetId: string }
+]
+```

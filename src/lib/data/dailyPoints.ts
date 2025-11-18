@@ -19,12 +19,12 @@
  * @module lib/data/dailyPoints
  */
 
-import { getDailyPoints, setDailyPoints } from '@/src/lib/storage/localStorage';
-import { generateUUID } from '@/src/lib/utils/uuid';
-import { dailyPointsSchema } from '@/src/schemas/validation';
-import { DEFAULT_DAILY_BASELINE } from '@/src/types/database';
+import { getDailyPoints, setDailyPoints } from '@/lib/storage/localStorage';
+import { generateUUID } from '@/lib/utils/uuid';
+import { dailyPointsSchema } from '@/schemas/validation';
+import { DEFAULT_DAILY_BASELINE } from '@/types/database';
 import { calculatePointsForDateRange } from './achievements';
-import type { DailyPointsRow } from '@/src/types/database';
+import type { DailyPointsRow } from '@/types/database';
 
 /**
  * Ensure a daily points record exists for a given date.

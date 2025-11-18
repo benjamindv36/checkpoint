@@ -1,6 +1,6 @@
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { createItem } from '@/src/lib/data/items';
-import { findDuplicateItems } from '@/src/lib/autolink/detection';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { createItem } from '@/lib/data/items';
+import { findDuplicateItems } from '@/lib/autolink/detection';
 
 // Mock localStorage for testing
 const localStorageMock = (() => {

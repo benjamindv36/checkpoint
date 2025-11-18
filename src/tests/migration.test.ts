@@ -12,18 +12,18 @@ import {
   exportLocalStorageToJSON,
   validateExportData,
   importBackupFile,
-} from '@/src/lib/migration/export';
+} from '@/lib/migration/export';
 import {
   mapLocalUserToAuthUser,
   validateUUIDPreservation,
   validateTimestampPreservation,
   normalizeDateFormat,
-} from '@/src/lib/migration/mapper';
+} from '@/lib/migration/mapper';
 import {
   detectConflicts,
   resolveConflict,
   filterNonConflictingItems,
-} from '@/src/lib/migration/conflicts';
+} from '@/lib/migration/conflicts';
 import {
   getMigrationStatus,
   isMigrationCompleted,
@@ -31,10 +31,10 @@ import {
   startMigration,
   completeMigration,
   clearMigrationStatus,
-} from '@/src/lib/migration/status';
-import { setItems, setAchievements, setDailyPoints, setUser } from '@/src/lib/storage/localStorage';
-import type { ItemRow, AchievementRow, DailyPointsRow, UserRow } from '@/src/types/database';
-import type { MigrationOptions } from '@/src/types/migration';
+} from '@/lib/migration/status';
+import { setItems, setAchievements, setDailyPoints, setUser } from '@/lib/storage/localStorage';
+import type { ItemRow, AchievementRow, DailyPointsRow, UserRow } from '@/types/database';
+import type { MigrationOptions } from '@/types/migration';
 
 // Mock localStorage for testing
 const localStorageMock = (() => {

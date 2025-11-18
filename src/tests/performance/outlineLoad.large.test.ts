@@ -1,5 +1,5 @@
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { createItem, getRootItems, getItemsByParentId } from '@/src/lib/data/items';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { createItem, getRootItems, getItemsByParentId } from '@/lib/data/items';
 
 // Mock localStorage for testing
 const localStorageMock = (() => {

@@ -1,7 +1,7 @@
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { setAchievements } from '@/src/lib/storage/localStorage';
-import { generateUUID } from '@/src/lib/utils/uuid';
-import { calculatePointsForDateRange } from '@/src/lib/data/achievements';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { setAchievements } from '@/lib/storage/localStorage';
+import { generateUUID } from '@/lib/utils/uuid';
+import { calculatePointsForDateRange } from '@/lib/data/achievements';
 
 // Mock localStorage for testing
 const localStorageMock = (() => {

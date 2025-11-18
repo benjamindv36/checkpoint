@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "serena-stdio": {
+      "command": "cmd",
+      "args": ["/c", "uvx --from git+https://github.com/oraios/serena serena start-mcp-server"],
+      "env": {}
+    }
+  }
+}

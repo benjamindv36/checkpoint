@@ -21,12 +21,12 @@
  * @module lib/data/items
  */
 
-import { getItems, setItems } from '@/src/lib/storage/localStorage';
-import { generateUUID } from '@/src/lib/utils/uuid';
-import { itemCreateSchema, itemUpdateSchema } from '@/src/schemas/validation';
-import { DEFAULT_POINTS } from '@/src/types/database';
-import type { ItemRow } from '@/src/types/database';
-import type { ItemCreateInput, ItemUpdateInput } from '@/src/schemas/validation';
+import { getItems, setItems } from '@/lib/storage/localStorage';
+import { generateUUID } from '@/lib/utils/uuid';
+import { itemCreateSchema, itemUpdateSchema } from '@/schemas/validation';
+import { DEFAULT_POINTS } from '@/types/database';
+import type { ItemRow } from '@/types/database';
+import type { ItemCreateInput, ItemUpdateInput } from '@/schemas/validation';
 
 /**
  * Create a new item in localStorage.

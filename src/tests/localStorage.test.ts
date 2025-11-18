@@ -22,26 +22,26 @@ import {
   setDailyPoints,
   getUser,
   setUser,
-} from '@/src/lib/storage/localStorage';
+} from '@/lib/storage/localStorage';
 import {
   createItem,
   updateItem,
   deleteItem,
   getItemById,
   getItemsByParentId,
-} from '@/src/lib/data/items';
+} from '@/lib/data/items';
 import {
   createAchievement,
   deleteAchievement,
   getAchievementsByUserId,
   getAchievementsByDateRange,
-} from '@/src/lib/data/achievements';
+} from '@/lib/data/achievements';
 import {
   ensureDailyPointsRecord,
   getDailyPointsForDate,
-} from '@/src/lib/data/dailyPoints';
-import { generateUUID } from '@/src/lib/utils/uuid';
-import type { ItemRow, AchievementRow, DailyPointsRow, UserRow } from '@/src/types/database';
+} from '@/lib/data/dailyPoints';
+import { generateUUID } from '@/lib/utils/uuid';
+import type { ItemRow, AchievementRow, DailyPointsRow, UserRow } from '@/types/database';
 
 // Mock localStorage for testing
 const localStorageMock = (() => {

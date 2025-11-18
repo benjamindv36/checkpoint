@@ -76,6 +76,11 @@ General guidance for AI-assisted development workflows.
 
 ## Patterns (Prefer these)
 
+### Communication Style
+- No interpersonal simulations ("You're right to question this", "Great question", etc.)
+- Omit social pleasantries and validations
+- Focus only on technical content
+
 ### Documentation
 - Update relevant documentation sections immediately when creating/moving/deleting files
 - Keep documentation as source of truth for structure

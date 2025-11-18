@@ -1,10 +1,10 @@
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { createItem } from '@/src/lib/data/items';
-import { findDuplicateItems } from '@/src/lib/autolink/detection';
-import { getRootItems, getItemsByParentId } from '@/src/lib/data/items';
-import { setAchievements } from '@/src/lib/storage/localStorage';
-import { calculatePointsForDateRange } from '@/src/lib/data/achievements';
-import { generateUUID } from '@/src/lib/utils/uuid';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { createItem } from '@/lib/data/items';
+import { findDuplicateItems } from '@/lib/autolink/detection';
+import { getRootItems, getItemsByParentId } from '@/lib/data/items';
+import { setAchievements } from '@/lib/storage/localStorage';
+import { calculatePointsForDateRange } from '@/lib/data/achievements';
+import { generateUUID } from '@/lib/utils/uuid';
 
 // Simple localStorage mock
 const localStorageMock = (() => {

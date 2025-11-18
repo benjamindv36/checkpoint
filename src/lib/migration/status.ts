@@ -18,8 +18,8 @@ import type {
   MigrationResult,
   MigrationStatusRecord,
   MigrationOptions,
-} from '@/src/types/migration';
-import { generateUUID } from '@/src/lib/utils/uuid';
+} from '@/types/migration';
+import { generateUUID } from '@/lib/utils/uuid';
 
 // localStorage key for migration status
 const MIGRATION_STATUS_KEY = 'waypoint:migration_status';

@@ -1,0 +1,129 @@
+"use client";
+
+import React, { useCallback, useEffect, useMemo } from 'react';
+import ReactFlow, {
+  Controls,
+  Background,
+  useNodesState,
+  useEdgesState,
+  Node,
+  Edge,
+  BackgroundVariant,
+  NodeTypes,
+} from 'reactflow';
+import 'reactflow/dist/style.css';
+import { getActiveItems } from '@/lib/data/items';
+import type { ItemRow } from '@/types/database';
+import DirectionNode from '@/components/nodes/DirectionNode';
+import WaypointNode from '@/components/nodes/WaypointNode';
+import StepNode from '@/components/nodes/StepNode';
+
+/**
+ * Canvas Component - ReactFlow Implementation
+ *
+ * Task Group 1: Core ReactFlow Setup
+ * - Renders ReactFlow canvas with items from localStorage
+ * - Transforms ItemRow to ReactFlow Node format
+ * - Creates edges from parent_id relationships
+ * - Supports pan, zoom, and basic controls
+ * - Maintains dark mode support
+ *
+ * Task Group 2: Custom Node Components
+ * - Registers custom node types (direction, waypoint, step)
+ * - Maps item types to custom node components
+ * - Applies selection styling to nodes
+ */
+
+// Register custom node types
+const nodeTypes: NodeTypes = {
+  direction: DirectionNode,
+  waypoint: WaypointNode,
+  step: StepNode,
+};
+
+export default function Canvas() {
+  // Transform items to ReactFlow nodes
+  const transformItemsToNodes = useCallback((items: ItemRow[]): Node[] => {
+    return items.map((item, index) => ({
+      id: item.id,
+      type: item.type, // Maps to custom node types (direction, waypoint, step)
+      position: { x: index * 250, y: 0 }, // Temporary grid layout
+      data: {
+        label: item.text,
+        itemType: item.type,
+        completed: item.completed,
+        points: item.points,
+      },
+    }));
+  }, []);
+
+  // Create edges from parent-child relationships
+  const createEdgesFromRelationships = useCallback((items: ItemRow[]): Edge[] => {
+    const edges: Edge[] = [];
+
+    items.forEach(item => {
+      if (item.parent_id) {
+        edges.push({
+          id: `edge-${item.parent_id}-${item.id}`,
+          source: item.parent_id,
+          target: item.id,
+          type: 'smoothstep',
+          style: { stroke: '#a1a1aa', strokeWidth: 2 }, // zinc-400
+        });
+      }
+    });
+
+    return edges;
+  }, []);
+
+  // Load initial data from localStorage
+  const loadCanvasData = useCallback(() => {
+    const items = getActiveItems(); // Only active (non-deleted) items
+    const nodes = transformItemsToNodes(items);
+    const edges = createEdgesFromRelationships(items);
+    return { nodes, edges };
+  }, [transformItemsToNodes, createEdgesFromRelationships]);
+
+  // Initialize nodes and edges
+  const initialData = useMemo(() => loadCanvasData(), [loadCanvasData]);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialData.nodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialData.edges);
+
+  // ReactFlow configuration
+  const defaultEdgeOptions = {
+    animated: false,
+    style: { stroke: '#a1a1aa', strokeWidth: 2 },
+  };
+
+  return (
+    <section className="h-[calc(100vh-4rem)] w-full">
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+        defaultEdgeOptions={defaultEdgeOptions}
+        fitView
+        nodesDraggable={true}
+        nodesConnectable={false} // Disable drag-to-connect
+        elementsSelectable={true}
+        className="bg-white dark:bg-black"
+      >
+        <Controls
+          showZoom={true}
+          showFitView={true}
+          showInteractive={false}
+          className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded shadow-sm"
+        />
+        <Background
+          variant={BackgroundVariant.Dots}
+          gap={20}
+          size={1}
+          className="bg-zinc-50 dark:bg-zinc-900"
+          color="#a1a1aa"
+        />
+      </ReactFlow>
+    </section>
+  );
+}

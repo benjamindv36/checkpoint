@@ -15,15 +15,15 @@
  */
 
 // Jest provides `describe`, `it`, `beforeEach`, and `expect` as globals; no import needed
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { createItem, deleteItem, getItemById, getActiveItemById } from '@/src/lib/data/items';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { createItem, deleteItem, getItemById, getActiveItemById } from '@/lib/data/items';
 import {
   findDuplicateItems,
   determineCanonicalInstance,
   enrichItemsWithAutoLinks,
   handleItemDeletion,
   syncLinkedItemUpdates,
-} from '@/src/lib/autolink/detection';
+} from '@/lib/autolink/detection';
 
 // Mock localStorage for testing
 const localStorageMock = (() => {

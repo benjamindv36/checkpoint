@@ -20,11 +20,11 @@
  * @module lib/data/achievements
  */
 
-import { getAchievements, setAchievements } from '@/src/lib/storage/localStorage';
-import { generateUUID } from '@/src/lib/utils/uuid';
-import { achievementCreateSchema } from '@/src/schemas/validation';
-import type { AchievementRow } from '@/src/types/database';
-import type { AchievementCreateInput } from '@/src/schemas/validation';
+import { getAchievements, setAchievements } from '@/lib/storage/localStorage';
+import { generateUUID } from '@/lib/utils/uuid';
+import { achievementCreateSchema } from '@/schemas/validation';
+import type { AchievementRow } from '@/types/database';
+import type { AchievementCreateInput } from '@/schemas/validation';
 
 /**
  * Create a new achievement record.

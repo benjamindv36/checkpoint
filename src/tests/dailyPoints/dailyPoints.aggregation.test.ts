@@ -1,7 +1,7 @@
-import { clearAllData } from '@/src/lib/storage/localStorage';
-import { ensureDailyPointsRecord, calculateTotalDailyPoints } from '@/src/lib/data/dailyPoints';
-import { createItem } from '@/src/lib/data/items';
-import { createAchievement } from '@/src/lib/data/achievements';
+import { clearAllData } from '@/lib/storage/localStorage';
+import { ensureDailyPointsRecord, calculateTotalDailyPoints } from '@/lib/data/dailyPoints';
+import { createItem } from '@/lib/data/items';
+import { createAchievement } from '@/lib/data/achievements';
 
 // Mock localStorage
 const localStorageMock = (() => {
